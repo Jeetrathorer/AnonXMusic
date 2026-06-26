@@ -1,7 +1,7 @@
 {
-    "name": "AnonX Music",
-    "description": "A Telegram Music Player Bot, written in Python with Pyrogram and Py-Tgcalls.",
-    "logo": "https://te.legra.ph/file/b8a0c1a00db3e57522b53.jpg",
+    "name": "ᴀ ᴍ ᴜ ʟ x ᴍᴜsɪᴄ ✨",
+    "description": "A Telegram Music Player Bot by jeet Rathore, written in Python with Pyrogram and Py-Tgcalls.",
+    "logo": "https://image.zaw-myo.workers.dev/image/1f130fb1-a99d-4573-accd-dea0d1b17ae0",
     "keywords": ["python3", "telegram", "bot", "music-bot"],
     "stack": "container",
     "env": {
