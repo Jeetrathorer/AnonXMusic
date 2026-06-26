@@ -22,8 +22,8 @@ class Config:
         self.SESSION2 = getenv("SESSION2", None)
         self.SESSION3 = getenv("SESSION3", None)
 
-        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/fallenx")
-        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/DevilsHeavenMF")
+        self.SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/amulmusic")
+        self.SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/+AB7jY0lnY6hlYjY1")
 
         self.AUTO_LEAVE: bool = getenv("AUTO_LEAVE", "False").lower() == "true"
         self.AUTO_END: bool = getenv("AUTO_END", "False").lower() == "true"
@@ -37,9 +37,10 @@ class Config:
             url for url in getenv("COOKIES_URL", "").split(" ")
             if url and "batbin.me" in url
         ]
-        self.DEFAULT_THUMB = getenv("DEFAULT_THUMB", "https://te.legra.ph/file/3e40a408286d4eda24191.jpg")
-        self.PING_IMG = getenv("PING_IMG", "https://files.catbox.moe/haagg2.png")
-        self.START_IMG = getenv("START_IMG", "https://files.catbox.moe/zvziwk.jpg")
+        self.DEFAULT_THUMB = getenv("DEFAULT_THUMB", "https://image.zaw-myo.workers.dev/image/d65cf4aa-82e7-4b16-8904-36c4c8ebfe9b")
+        self.PING_IMG = getenv("PING_IMG", "https://image.zaw-myo.workers.dev/image/1f130fb1-a99d-4573-accd-dea0d1b17ae0")
+        self.START_IMG = getenv("START_IMG", "https://image.zaw-myo.workers.dev/image/1f130fb1-a99d-4573-accd-dea0d1b17ae0")
+        self.PLAY_IMG = getenv("PLAY_IMG", "https://image.zaw-myo.workers.dev/image/d65cf4aa-82e7-4b16-8904-36c4c8ebfe9b")
 
     def check(self):
         missing = [
