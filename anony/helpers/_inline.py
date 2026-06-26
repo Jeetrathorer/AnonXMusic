@@ -153,7 +153,7 @@ class Inline:
                 [
                     self.ikb(
                         text=lang["source"],
-                        url="https://github.com/Jeetrathorer/amulxmusic",
+                        url=config.SUPPORT_CHAT,
                     )
                 ]
             ]
