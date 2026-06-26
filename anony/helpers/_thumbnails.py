@@ -67,6 +67,7 @@ class Thumbnail:
             draw.text((40, 650), "0:01", font=self.font1)
             draw.line([(140, 670), (1160, 670)], fill=self.fill, width=5, joint="curve")
             draw.text((1185, 650), song.duration, font=self.font1, fill=self.fill)
+            draw.text((50, 695), "ᴀ ᴍ ᴜ ʟ x ᴍᴜsɪᴄ ✨ | Made by jeet Rathore", font=self.font2, fill=(200, 200, 200))
 
             image.save(output)
             try: os.remove(temp)
