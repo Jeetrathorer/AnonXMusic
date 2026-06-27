@@ -165,8 +165,7 @@ class Inline:
         return self.ikm(
             [
                 [
-                    self.ikb(text="❐", copy_text=link),
-                    self.ikb(text="Youtube", url=link),
+                    self.ikb(text="▶️ Youtube", url=link),
                 ],
             ]
         )
