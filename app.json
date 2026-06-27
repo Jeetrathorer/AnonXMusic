@@ -49,6 +49,16 @@
             "description": "Your Telegram support channel link (e.g. https://t.me/username)",
             "value": "",
             "required": true
+        },
+        "START_IMG": {
+            "description": "Image URL shown when bot starts (direct image link)",
+            "value": "",
+            "required": false
+        },
+        "PLAY_IMG": {
+            "description": "Image URL shown when a song is playing (direct image link)",
+            "value": "",
+            "required": false
         }
     }
 }
