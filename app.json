@@ -39,6 +39,16 @@
             "description": "A Pyrogram v2 String Session from @StringFatherBot on Telegram.",
             "value": "",
             "required": true
+        },
+        "SUPPORT_CHAT": {
+            "description": "Your Telegram support group link (e.g. https://t.me/+xxxxxxxx or https://t.me/username)",
+            "value": "",
+            "required": true
+        },
+        "SUPPORT_CHANNEL": {
+            "description": "Your Telegram support channel link (e.g. https://t.me/username)",
+            "value": "",
+            "required": true
         }
     }
 }
