@@ -120,7 +120,6 @@ class YouTube:
 
         cookie = self.get_cookies()
         base_opts = {
-            "outtmpl": "downloads/%(id)s.%(ext)s",
             "quiet": True,
             "noplaylist": True,
             "geo_bypass": True,
@@ -131,32 +130,31 @@ class YouTube:
             "extractor_args": {
                 "youtube": {
                     "player_client": ["ios", "web"],
-                    "skip": ["hls", "dash"],
                 }
-            },
-            "http_headers": {
-                "User-Agent": "com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)",
-                "Accept-Language": "en-US,en;q=0.9",
             },
         }
 
         if video:
             ydl_opts = {
                 **base_opts,
-                "format": "(bestvideo[height<=?720][width<=?1280][ext=mp4])+(bestaudio[ext=m4a]/bestaudio)",
+                "outtmpl": "downloads/%(id)s.%(ext)s",
+                "format": "bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
                 "merge_output_format": "mp4",
             }
         else:
             ydl_opts = {
                 **base_opts,
-                "format": "bestaudio[ext=webm][acodec=opus]/bestaudio[ext=m4a]/bestaudio",
+                "outtmpl": f"downloads/{video_id}.%(ext)s",
+                "format": "bestaudio/best",
                 "postprocessors": [{
                     "key": "FFmpegExtractAudio",
                     "preferredcodec": "opus",
+                    "preferredquality": "128",
                 }],
             }
 
         def _download():
+            actual_file = filename
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 try:
                     ydl.download([url])
@@ -165,6 +163,14 @@ class YouTube:
                 except Exception as ex:
                     logger.warning("Download failed: %s", ex)
                     return None
-            return filename
+
+            if not video:
+                for ext in ["opus", "webm", "m4a", "mp3", "ogg"]:
+                    candidate = f"downloads/{video_id}.{ext}"
+                    if Path(candidate).exists():
+                        actual_file = candidate
+                        break
+
+            return actual_file if Path(actual_file).exists() else None
 
         return await asyncio.to_thread(_download)
