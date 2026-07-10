@@ -128,6 +128,16 @@ class YouTube:
             "overwrites": False,
             "nocheckcertificate": True,
             "cookiefile": cookie,
+            "extractor_args": {
+                "youtube": {
+                    "player_client": ["ios", "web"],
+                    "skip": ["hls", "dash"],
+                }
+            },
+            "http_headers": {
+                "User-Agent": "com.google.ios.youtube/19.29.1 (iPhone16,2; U; CPU iOS 17_5_1 like Mac OS X;)",
+                "Accept-Language": "en-US,en;q=0.9",
+            },
         }
 
         if video:
