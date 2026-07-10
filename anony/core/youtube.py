@@ -112,14 +112,13 @@ class YouTube:
 
     async def download(self, video_id: str, video: bool = False) -> str | None:
         url = self.base + video_id
-        ext = "mp4" if video else "webm"
-        filename = f"downloads/{video_id}.{ext}"
 
-        if Path(filename).exists():
-            return filename
+        for f in Path("downloads").glob(f"{video_id}.*"):
+            return str(f)
 
         cookie = self.get_cookies()
         base_opts = {
+            "outtmpl": f"downloads/{video_id}.%(ext)s",
             "quiet": True,
             "noplaylist": True,
             "geo_bypass": True,
@@ -127,50 +126,30 @@ class YouTube:
             "overwrites": False,
             "nocheckcertificate": True,
             "cookiefile": cookie,
-            "extractor_args": {
-                "youtube": {
-                    "player_client": ["ios", "web"],
-                }
-            },
         }
 
         if video:
             ydl_opts = {
                 **base_opts,
-                "outtmpl": "downloads/%(id)s.%(ext)s",
-                "format": "bestvideo[height<=?720][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+                "format": "bestvideo[height<=?720]+bestaudio/best",
                 "merge_output_format": "mp4",
             }
         else:
             ydl_opts = {
                 **base_opts,
-                "outtmpl": f"downloads/{video_id}.%(ext)s",
                 "format": "bestaudio/best",
-                "postprocessors": [{
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "opus",
-                    "preferredquality": "128",
-                }],
             }
 
         def _download():
-            actual_file = filename
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 try:
                     ydl.download([url])
-                except (yt_dlp.utils.DownloadError, yt_dlp.utils.ExtractorError):
-                    return None
                 except Exception as ex:
                     logger.warning("Download failed: %s", ex)
                     return None
 
-            if not video:
-                for ext in ["opus", "webm", "m4a", "mp3", "ogg"]:
-                    candidate = f"downloads/{video_id}.{ext}"
-                    if Path(candidate).exists():
-                        actual_file = candidate
-                        break
-
-            return actual_file if Path(actual_file).exists() else None
+            for f in Path("downloads").glob(f"{video_id}.*"):
+                return str(f)
+            return None
 
         return await asyncio.to_thread(_download)
